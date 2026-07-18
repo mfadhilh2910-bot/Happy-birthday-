@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <!-- Font Elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Latar belakang gelap elegan */
+            background: linear-gradient(135deg, #180924, #2a1228, #110815);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            overflow: hidden; 
+            position: relative;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- STYLING KADO Awal --- */
+        #gift-container {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+
+        #gift-container:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-icon {
+            font-size: 100px;
+            animation: bounce 2s infinite;
+        }
+
+        .click-text {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #d1b8c4;
+            animation: pulse 1.5s infinite;
+            font-weight: 300;
+        }
+
+        /* --- STYLING PESAN UTAMA --- */
+        #message-container {
+            z-index: 10;
+            width: 90%; 
+            max-width: 500px; 
+            animation: fadeIn 2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .top-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #a38c9e;
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        #birthday-message {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 4.5rem); 
+            font-weight: 400;
+            color: #fce8eb;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Pengganti garis vertikal jadi emot kue */
+        .cake-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite; /* Biar kuenya sedikit berkedip estetik */
+        }
+
+        .quote {
+            font-size: clamp(0.9rem, 3.5vw, 1.05rem); 
+            font-weight: 300;
+            color: #c9b4c0;
+            line-height: 1.7;
+            padding: 0 15px; 
+            font-style: italic;
+        }
+
+        /* --- ANIMASI CONFETTI --- */
+        .confetti {
+            position: absolute;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 5;
+            opacity: 0.8; 
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="gift-container" onclick="openGift()">
+        <div class="gift-icon">🎁</div>
+        <div class="click-text">Tap to open</div>
+    </div>
+
+    <div id="message-container" class="hidden">
+        <div class="top-subtitle">A Special Day To Celebrate</div>
+        
+        <div id="birthday-message">
+            Happy<br>Birthday,
+        </div>
+        
+        <!-- Emotikon Kue pengganti garis vertikal -->
+        <div class="cake-emoji">🎂</div>
+
+        <div class="quote">
+            "Wishing you a fantastic day filled with joy, and a year packed with wonderful adventures. You deserve the best!"
+        </div>
+    </div>
+
+    <script>
+        let confettiInterval;
+
+        function openGift() {
+            const gift = document.getElementById('gift-container');
+            const message = document.getElementById('message-container');
+
+            gift.classList.add('hidden');
+            message.classList.remove('hidden');
+            
+            // Memulai hujan confetti
+            startConfetti();
+        }
+
+        function startConfetti() {
+            confettiInterval = setInterval(() => {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                const shapes = ['🎉', '✨', '🎊'];
+                confetti.innerText = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 4 + 4 + 's';
+                confetti.style.fontSize = Math.random() * 10 + 15 + 'px';
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 8000);
+            }, 250); 
+        }
+    </script>
+</body>
+</html>
